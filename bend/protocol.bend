@@ -106,6 +106,27 @@ def collect_rule_record(parts: List<&2, String>, approved: Bool) -> List<&2, Har
     case False{}:
       Nil{}
 
+def append_rule(rules: List<&2, Harness.Rule>, rule: Harness.Rule) -> List<&2, Harness.Rule>:
+  match rules:
+    case Nil{}:
+      [rule]
+    case Con{head, tail}:
+      Con{head, append_rule(tail, rule)}
+
+def append_command(commands: List<&2, Generation.QualityGate>, command: String) -> List<&2, Generation.QualityGate>:
+  match commands:
+    case Nil{}:
+      [Generation.QualityGate{command}]
+    case Con{head, tail}:
+      Con{head, append_command(tail, command)}
+
+def append_skill(skills: List<&2, Generation.Skill>, skill: Generation.Skill) -> List<&2, Generation.Skill>:
+  match skills:
+    case Nil{}:
+      [skill]
+    case Con{head, tail}:
+      Con{head, append_skill(tail, skill)}
+
 def headers_valid(+agent: String, +project: String) -> Bool:
   (String.eq(agent, "codex") || String.eq(agent, "claude")) &&
     Bool.not(String.is_empty(String.trim(project)))
