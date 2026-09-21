@@ -38,3 +38,6 @@ def Laws.instructions_contain_approved_rules():
 
 def Laws.instructions_are_empty_without_approval():
   {==}
+
+def Laws.instruction_document_renders_edge_sections():
+  {==}

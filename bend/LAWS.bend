@@ -45,3 +45,6 @@ law instructions_contain_approved_rules:
 
 law instructions_are_empty_without_approval:
   {Generation.instructions("codex", [Harness.Rule{"candidate", "C", Harness.Human{}, Harness.Candidate{}, Nil{}}, Harness.Rule{"rejected", "R", Harness.Human{}, Harness.Rejected{}, Nil{}}]) == "# HarnessForge instructions for codex\n\n" : String}
+
+law instruction_document_renders_edge_sections:
+  {Generation.instruction_document("codex", Nil{}, [Generation.QualityGate{"go test ./..."}], [Generation.Skill{"review", "Review changes", "skills/review.md"}]) == "# HarnessForge instructions for codex\n\n- `go test ./...`\n- [review] Review changes — `skills/review.md`\n" : String}
