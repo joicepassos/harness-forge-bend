@@ -10,7 +10,7 @@ esac
 if [ ! -f "$TOOLCHAIN/bend2/main.ts" ]; then
   mkdir -p "$TOOLCHAIN"
   ARCHIVE="$TOOLCHAIN/bend.tar.gz"
-  curl -fsSL "https://github.com/bendlang/bend/archive/$PIN.tar.gz" -o "$ARCHIVE"
+  curl -fsSL "https://codeload.github.com/bendlang/bend/tar.gz/$PIN" -o "$ARCHIVE"
   tar -xzf "$ARCHIVE" --strip-components=1 -C "$TOOLCHAIN"
   rm -f "$ARCHIVE"
 fi
