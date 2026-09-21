@@ -1,0 +1,17 @@
+import Base
+
+# The first parser stage validates record shape without decoding YAML or doing IO.
+def line_valid(+line: String) -> Bool:
+  Bool.not(String.is_empty(line)) &&
+    (String.starts_with(line, "agent\t") ||
+      String.starts_with(line, "project\t") ||
+      String.starts_with(line, "rule\t") ||
+      String.starts_with(line, "command\t") ||
+      String.starts_with(line, "skill\t"))
+
+def protocol_valid(lines: List<&2, String>) -> Bool:
+  match lines:
+    case Nil{}:
+      True{}
+    case Con{head, tail}:
+      line_valid(head) && protocol_valid(tail)

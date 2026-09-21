@@ -62,3 +62,9 @@ def Laws.collector_keeps_source_directories():
 
 def Laws.inventory_limit_accepts_small_projects():
   {==}
+
+def Laws.generation_protocol_accepts_known_records():
+  {==}
+
+def Laws.generation_protocol_rejects_unknown_records():
+  {==}

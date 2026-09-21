@@ -3,6 +3,7 @@ import ./core.bend as Core
 import ./harness.bend as Harness
 import ./generation.bend as Generation
 import ./collector.bend as Collector
+import ./protocol.bend as Protocol
 
 # A missing signal cannot increase a count; a match adds exactly one.
 law absent_preserves_count:
@@ -70,3 +71,9 @@ law collector_keeps_source_directories:
 
 law inventory_limit_accepts_small_projects:
   {Core.within_file_limit(["README.md", "main.go"]) == True{} : Bool}
+
+law generation_protocol_accepts_known_records:
+  {Protocol.protocol_valid(["agent\tcodex", "project\tdemo", "command\tgo test ./..."]) == True{} : Bool}
+
+law generation_protocol_rejects_unknown_records:
+  {Protocol.protocol_valid(["unknown\tvalue"]) == False{} : Bool}
