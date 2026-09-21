@@ -1,0 +1,5 @@
+bin/
+__pycache__/
+*.c
+*.js
+inventory.txt
