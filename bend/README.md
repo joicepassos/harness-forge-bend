@@ -41,6 +41,11 @@ The corresponding laws in `LAWS.bend` and proofs in `PROOF.bend` ensure that an
 instruction document contains approved rules only, and is empty when no rule is
 approved.
 
+The Go CLI can opt into the Bend generation adapter with
+`harnessforge generate codex --bend-generator /path/to/generator`. The executable
+receives the protocol described in `GENERATION_PROTOCOL.md` as its only argument
+and must write the generated document to standard output.
+
 ## Rules in this increment
 
 - Languages by extension: Bend, Go, Python, Java, TypeScript/TSX, JavaScript/JSX, Rust, C, and Shell. Matching is case-sensitive.
