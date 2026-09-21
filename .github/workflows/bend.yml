@@ -1,7 +1,7 @@
 name: Bend core
 on:
   push:
-    branches: [main, 'bend/**']
+    branches: [main, 'bend/**', 'feature/**']
     paths: ['bend/**', '.github/workflows/bend.yml']
   pull_request:
     paths: ['bend/**', '.github/workflows/bend.yml']
