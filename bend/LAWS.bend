@@ -77,3 +77,6 @@ law generation_protocol_accepts_known_records:
 
 law generation_protocol_rejects_unknown_records:
   {Protocol.protocol_valid(["unknown\tvalue"]) == False{} : Bool}
+
+law generation_protocol_decodes_two_field_records:
+  {Protocol.value("agent\tcodex") == "codex" : String}

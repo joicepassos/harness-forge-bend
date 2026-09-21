@@ -68,3 +68,6 @@ def Laws.generation_protocol_accepts_known_records():
 
 def Laws.generation_protocol_rejects_unknown_records():
   {==}
+
+def Laws.generation_protocol_decodes_two_field_records():
+  {==}

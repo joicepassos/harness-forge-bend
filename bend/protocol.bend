@@ -15,3 +15,13 @@ def protocol_valid(lines: List<&2, String>) -> Bool:
       True{}
     case Con{head, tail}:
       line_valid(head) && protocol_valid(tail)
+
+def two_field_value(parts: List<&2, String>) -> String:
+  match parts:
+    case Con{tag, Con{value, Nil{}}}:
+      value
+    case _:
+      ""
+
+def value(line: String) -> String:
+  two_field_value(String.split(line, '\t'))
