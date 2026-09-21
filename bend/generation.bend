@@ -67,5 +67,13 @@ def render_skills(skills: List<&2, Skill>) -> String:
 def instruction_document(agent: String, rules: List<&2, Harness.Rule>, commands: List<&2, QualityGate>, skills: List<&2, Skill>) -> String:
   instructions(agent, rules) ++ render_commands(commands) ++ render_skills(skills)
 
+def render_input(input: Input) -> String:
+  match input:
+    case Input{agent, project, rules, commands, skills}:
+      "# " ++ project ++ " agent instructions\n\n" ++
+        render_approved(rules) ++
+        render_commands(commands) ++
+        render_skills(skills)
+
 def approved_only(+rules: List<&2, Harness.Rule>) -> Bool:
   String.is_empty(render_approved(rules)) || Nat.is_gt(Harness.approved_rules(rules), 0n)

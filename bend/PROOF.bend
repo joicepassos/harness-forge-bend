@@ -48,6 +48,9 @@ def Laws.generation_input_requires_supported_agent():
 def Laws.generation_input_accepts_valid_ir():
   {==}
 
+def Laws.generation_renders_valid_input():
+  {==}
+
 def Laws.collector_excludes_secret_names():
   {==}
 

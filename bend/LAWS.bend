@@ -56,6 +56,9 @@ law generation_input_requires_supported_agent:
 law generation_input_accepts_valid_ir:
   {Generation.input_valid(Generation.Input{"codex", "demo", Nil{}, Nil{}, Nil{}}) == True{} : Bool}
 
+law generation_renders_valid_input:
+  {Generation.render_input(Generation.Input{"codex", "demo", [Harness.Rule{"approved", "A", Harness.Human{}, Harness.Approved{}, Nil{}}], Nil{}, Nil{}}) == "# demo agent instructions\n\n- **approved** — A\n" : String}
+
 law collector_excludes_secret_names:
   {Collector.allowed_path(".env.local") == False{} : Bool}
 
