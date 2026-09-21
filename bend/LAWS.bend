@@ -89,3 +89,6 @@ law generation_protocol_decodes_command:
 
 law generation_protocol_decodes_skill_path:
   {Protocol.skill_path(String.split("skill\treview\tReview\tskills/review.md", '\t')) == "skills/review.md" : String}
+
+law generation_protocol_builds_input_headers:
+  {Generation.input_valid(Protocol.input_from_headers("codex", "demo")) == True{} : Bool}

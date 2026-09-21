@@ -80,3 +80,6 @@ def Laws.generation_protocol_decodes_command():
 
 def Laws.generation_protocol_decodes_skill_path():
   {==}
+
+def Laws.generation_protocol_builds_input_headers():
+  {==}

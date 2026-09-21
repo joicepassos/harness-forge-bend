@@ -1,4 +1,5 @@
 import Base
+import ./generation.bend as Generation
 
 # The first parser stage validates record shape without decoding YAML or doing IO.
 def line_valid(+line: String) -> Bool:
@@ -73,3 +74,6 @@ def skill_path(parts: List<&2, String>) -> String:
       path
     case _:
       ""
+
+def input_from_headers(agent: String, project: String) -> Generation.Input:
+  Generation.Input{agent, project, Nil{}, Nil{}, Nil{}}
