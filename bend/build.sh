@@ -14,7 +14,11 @@ if [ ! -f "$TOOLCHAIN/bend2/main.ts" ]; then
   tar -xzf "$ARCHIVE" --strip-components=1 -C "$TOOLCHAIN"
   rm -f "$ARCHIVE"
 fi
-ACTUAL=$(git -C "$TOOLCHAIN" rev-parse HEAD 2>/dev/null || printf '%s' "$PIN")
+if [ -n "${BEND_SOURCE:-}" ]; then
+  ACTUAL=$(git -C "$TOOLCHAIN" rev-parse HEAD)
+else
+  ACTUAL="$PIN"
+fi
 if [ "$ACTUAL" != "$PIN" ]; then
   echo "Expected Bend $PIN, found $ACTUAL" >&2
   exit 1
