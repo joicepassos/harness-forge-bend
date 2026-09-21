@@ -84,3 +84,11 @@ def approved_rule(+parts: List<&2, String>) -> Harness.Rule:
 
 def approved_record(+parts: List<&2, String>) -> Bool:
   String.eq(rule_status(parts), "approved")
+
+def input_with_rule(agent: String, project: String, rule: Harness.Rule) -> Generation.Input:
+  Generation.Input{agent, project, Con{rule, Nil{}}, Nil{}, Nil{}}
+
+def input_approved_count(input: Generation.Input) -> Nat:
+  match input:
+    case Generation.Input{agent, project, rules, commands, skills}:
+      Harness.approved_rules(rules)

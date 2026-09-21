@@ -98,3 +98,6 @@ law generation_protocol_builds_approved_rule:
 
 law generation_protocol_filters_nonapproved_rules:
   {Protocol.approved_record(String.split("rule\tcandidate\tid\tDescription", '\t')) == False{} : Bool}
+
+law generation_protocol_adds_approved_rule_to_input:
+  {Protocol.input_approved_count(Protocol.input_with_rule("codex", "demo", Protocol.approved_rule(String.split("rule\tapproved\tid\tDescription", '\t')))) == 1n : Nat}
