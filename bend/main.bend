@@ -27,12 +27,17 @@ def byte_count(text: String) -> Nat:
     case SCon{char, rest}:
       Nat.add(char_bytes(Char.to_u32(char)), byte_count(rest))
 
-def render(complete: Bool, text: String) -> IO(Unit):
-  match complete:
-    case True{}:
+def render_checked(complete: Bool, within_limit: Bool, text: String) -> IO(Unit):
+  match complete within_limit:
+    case True{} True{}:
       IO.write(Core.report(nonempty(String.lines(text))))
-    case False{}:
+    case True{} False{}:
+      IO.die(Unit, 1, "Inventory exceeds 20000 files")
+    case False{} _:
       IO.die(Unit, 1, "Incomplete or invalid UTF-8 inventory")
+
+def render(complete: Bool, +text: String) -> IO(Unit):
+  render_checked(complete, Core.within_file_limit(nonempty(String.lines(text))), text)
 
 def finish(pair: File & Result<&1, &1, U32 & String, String>, expected: U32) -> IO(Unit):
   (file, result) = pair
