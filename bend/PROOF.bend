@@ -83,3 +83,6 @@ def Laws.generation_protocol_decodes_skill_path():
 
 def Laws.generation_protocol_builds_input_headers():
   {==}
+
+def Laws.generation_protocol_builds_approved_rule():
+  {==}

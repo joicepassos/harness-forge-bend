@@ -1,5 +1,6 @@
 import Base
 import ./generation.bend as Generation
+import ./harness.bend as Harness
 
 # The first parser stage validates record shape without decoding YAML or doing IO.
 def line_valid(+line: String) -> Bool:
@@ -77,3 +78,6 @@ def skill_path(parts: List<&2, String>) -> String:
 
 def input_from_headers(agent: String, project: String) -> Generation.Input:
   Generation.Input{agent, project, Nil{}, Nil{}, Nil{}}
+
+def approved_rule(+parts: List<&2, String>) -> Harness.Rule:
+  Harness.Rule{rule_id(parts), rule_description(parts), Harness.Human{}, Harness.Approved{}, Nil{}}

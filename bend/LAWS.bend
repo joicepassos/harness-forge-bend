@@ -92,3 +92,6 @@ law generation_protocol_decodes_skill_path:
 
 law generation_protocol_builds_input_headers:
   {Generation.input_valid(Protocol.input_from_headers("codex", "demo")) == True{} : Bool}
+
+law generation_protocol_builds_approved_rule:
+  {Harness.approved(Protocol.approved_rule(String.split("rule\tapproved\tid\tDescription", '\t'))) == True{} : Bool}
