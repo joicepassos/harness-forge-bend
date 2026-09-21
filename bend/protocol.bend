@@ -92,3 +92,6 @@ def input_approved_count(input: Generation.Input) -> Nat:
   match input:
     case Generation.Input{agent, project, rules, commands, skills}:
       Harness.approved_rules(rules)
+
+def input_with_command(agent: String, project: String, command: String) -> Generation.Input:
+  Generation.Input{agent, project, Nil{}, [Generation.QualityGate{command}], Nil{}}

@@ -92,3 +92,6 @@ def Laws.generation_protocol_filters_nonapproved_rules():
 
 def Laws.generation_protocol_adds_approved_rule_to_input():
   {==}
+
+def Laws.generation_protocol_adds_command_to_input():
+  {==}

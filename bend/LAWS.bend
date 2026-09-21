@@ -101,3 +101,6 @@ law generation_protocol_filters_nonapproved_rules:
 
 law generation_protocol_adds_approved_rule_to_input:
   {Protocol.input_approved_count(Protocol.input_with_rule("codex", "demo", Protocol.approved_rule(String.split("rule\tapproved\tid\tDescription", '\t')))) == 1n : Nat}
+
+law generation_protocol_adds_command_to_input:
+  {Generation.instruction_document("codex", Nil{}, [Generation.QualityGate{"go test ./..."}], Nil{}) == "# HarnessForge instructions for codex\n\n- `go test ./...`\n" : String}
