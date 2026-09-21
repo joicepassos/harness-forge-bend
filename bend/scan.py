@@ -22,7 +22,7 @@ def collect(root: Path) -> tuple[str, int]:
     root = Path(os.path.abspath(root))
     if not stat.S_ISDIR(root.lstat().st_mode):
         raise ValueError('project must be a real directory, not a symlink')
-    paths, skipped, visited, size = [], 0, 0, 0
+    paths, skipped, visited = [], 0, 0
     pending = [(root, 0)]
     while pending:
         directory, depth = pending.pop()
@@ -50,7 +50,6 @@ def collect(root: Path) -> tuple[str, int]:
                     else:
                         pending.append((Path(entry.path), depth + 1))
                 elif entry.is_file(follow_symlinks=False):
-                    size += len(relative.encode('utf-8')) + 1
                     paths.append(relative)
                 else:
                     skipped += 1
