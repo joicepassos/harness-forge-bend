@@ -30,6 +30,12 @@ are explicit: an approved or rejected rule can return to `Candidate`, but cannot
 jump directly to the other decision. `approved_rules` is the first generation
 boundary: later document generation can consume only approved rules.
 
+`generation.bend` is the next pure boundary. It renders deterministic Markdown
+instructions from the IR and filters candidate or rejected rules before output.
+The corresponding laws in `LAWS.bend` and proofs in `PROOF.bend` ensure that an
+instruction document contains approved rules only, and is empty when no rule is
+approved.
+
 ## Rules in this increment
 
 - Languages by extension: Bend, Go, Python, Java, TypeScript/TSX, JavaScript/JSX, Rust, C, and Shell. Matching is case-sensitive.

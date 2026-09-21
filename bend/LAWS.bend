@@ -1,6 +1,7 @@
 import Base
 import ./core.bend as Core
 import ./harness.bend as Harness
+import ./generation.bend as Generation
 
 # A missing signal cannot increase a count; a match adds exactly one.
 law absent_preserves_count:
@@ -38,3 +39,9 @@ law approved_reopens_as_candidate:
 
 law generated_rules_are_approved_only:
   {Harness.approved_rules([Harness.Rule{"a", "A", Harness.Human{}, Harness.Approved{}, Nil{}}, Harness.Rule{"b", "B", Harness.Human{}, Harness.Candidate{}, Nil{}}, Harness.Rule{"c", "C", Harness.Human{}, Harness.Rejected{}, Nil{}}]) == 1n : Nat}
+
+law instructions_contain_approved_rules:
+  {Generation.instructions("codex", [Harness.Rule{"approved", "A", Harness.Human{}, Harness.Approved{}, Nil{}}, Harness.Rule{"candidate", "C", Harness.Human{}, Harness.Candidate{}, Nil{}}]) == "# HarnessForge instructions for codex\n\n- **approved** — A\n" : String}
+
+law instructions_are_empty_without_approval:
+  {Generation.instructions("codex", [Harness.Rule{"candidate", "C", Harness.Human{}, Harness.Candidate{}, Nil{}}, Harness.Rule{"rejected", "R", Harness.Human{}, Harness.Rejected{}, Nil{}}]) == "# HarnessForge instructions for codex\n\n" : String}

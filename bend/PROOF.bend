@@ -1,6 +1,7 @@
 import Base
 import ./LAWS.bend as Laws
 import ./harness.bend as Harness
+import ./generation.bend as Generation
 
 def Laws.absent_preserves_count(n):
   {==}
@@ -30,4 +31,10 @@ def Laws.approved_reopens_as_candidate():
   {==}
 
 def Laws.generated_rules_are_approved_only():
+  {==}
+
+def Laws.instructions_contain_approved_rules():
+  {==}
+
+def Laws.instructions_are_empty_without_approval():
   {==}
