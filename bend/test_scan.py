@@ -19,8 +19,8 @@ class CollectorTests(unittest.TestCase):
                 path.write_text('contents must not be read', encoding='utf-8')
             with patch.object(Path, 'read_text', side_effect=AssertionError('content read')):
                 manifest, skipped = collect(root)
-            self.assertEqual(manifest, '.github/workflows/check.yml\nREADME.md\nsrc/a_test.go\nsrc/z.go\nweb/package.json\n')
-            self.assertEqual(skipped, 5)
+            self.assertEqual(manifest, '.env\n.env.local\n.github/workflows/check.yml\nREADME.md\nprivate.pem\nsrc/a_test.go\nsrc/z.go\nweb/package.json\n')
+            self.assertEqual(skipped, 2)
 
     def test_empty_and_invalid_root(self):
         with tempfile.TemporaryDirectory() as temp:
