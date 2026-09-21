@@ -80,3 +80,6 @@ law generation_protocol_rejects_unknown_records:
 
 law generation_protocol_decodes_two_field_records:
   {Protocol.value("agent\tcodex") == "codex" : String}
+
+law generation_protocol_decodes_rule_status:
+  {Protocol.rule_field("rule\tapproved\tid\tDescription") == "approved" : String}

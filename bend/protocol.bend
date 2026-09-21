@@ -25,3 +25,27 @@ def two_field_value(parts: List<&2, String>) -> String:
 
 def value(line: String) -> String:
   two_field_value(String.split(line, '\t'))
+
+def rule_status(parts: List<&2, String>) -> String:
+  match parts:
+    case Con{tag, Con{status, Con{id, Con{description, Nil{}}}}}:
+      status
+    case _:
+      ""
+
+def rule_id(parts: List<&2, String>) -> String:
+  match parts:
+    case Con{tag, Con{status, Con{id, Con{description, Nil{}}}}}:
+      id
+    case _:
+      ""
+
+def rule_description(parts: List<&2, String>) -> String:
+  match parts:
+    case Con{tag, Con{status, Con{id, Con{description, Nil{}}}}}:
+      description
+    case _:
+      ""
+
+def rule_field(line: String) -> String:
+  rule_status(String.split(line, '\t'))
