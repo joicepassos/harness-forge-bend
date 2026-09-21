@@ -8,8 +8,6 @@ import subprocess
 import sys
 import tempfile
 
-MAX_FILES = 20_000
-MAX_BYTES = 4 * 1024 * 1024
 SKIP_DIRS = frozenset({
     '.git', '.hg', '.svn', 'node_modules', 'vendor', '.venv', 'venv',
     '__pycache__', '.cache', '.gocache', '.worktrees', 'dist', 'build',
@@ -54,8 +52,6 @@ def collect(root: Path) -> tuple[str, int]:
                 elif entry.is_file(follow_symlinks=False):
                     size += len(relative.encode('utf-8')) + 1
                     paths.append(relative)
-                    if len(paths) > MAX_FILES or size > MAX_BYTES:
-                        raise ValueError('inventory exceeds 20000 files or 4 MiB')
                 else:
                     skipped += 1
     return ''.join(path + '\n' for path in sorted(paths)), skipped

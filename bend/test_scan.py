@@ -32,13 +32,10 @@ class CollectorTests(unittest.TestCase):
             with self.assertRaises(OSError):
                 collect(Path(temp) / 'missing')
 
-    def test_limits_are_errors(self):
+    def test_inventory_is_collected_without_policy_limits(self):
         with tempfile.TemporaryDirectory() as temp:
             (Path(temp) / 'a.go').touch()
-            with patch('scan.MAX_FILES', 0), self.assertRaises(ValueError):
-                collect(Path(temp))
-            with patch('scan.MAX_BYTES', 1), self.assertRaises(ValueError):
-                collect(Path(temp))
+            self.assertEqual(collect(Path(temp)), ('a.go\n', 0))
 
     @unittest.skipIf(os.name == 'nt', 'POSIX filesystem cases')
     def test_links_special_files_and_unicode(self):
