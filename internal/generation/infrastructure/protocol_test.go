@@ -24,3 +24,10 @@ func TestEncodeProtocolFiltersUnapprovedData(t *testing.T) {
 		t.Fatalf("unexpected protocol: %q", got)
 	}
 }
+
+func TestEncodeProtocolRejectsControlSeparators(t *testing.T) {
+	_, err := EncodeProtocol(harnessdomain.Harness{Project: harnessdomain.Project{Name: "bad\tname"}}, "codex")
+	if err == nil {
+		t.Fatal("expected tab in a field to be rejected")
+	}
+}
