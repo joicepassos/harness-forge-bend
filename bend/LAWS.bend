@@ -50,6 +50,12 @@ law instructions_are_empty_without_approval:
 law instruction_document_renders_edge_sections:
   {Generation.instruction_document("codex", Nil{}, [Generation.QualityGate{"go test ./..."}], [Generation.Skill{"review", "Review changes", "skills/review.md"}]) == "# HarnessForge instructions for codex\n\n- `go test ./...`\n- [review] Review changes — `skills/review.md`\n" : String}
 
+law generation_input_requires_supported_agent:
+  {Generation.input_valid(Generation.Input{"unknown", "demo", Nil{}, Nil{}, Nil{}}) == False{} : Bool}
+
+law generation_input_accepts_valid_ir:
+  {Generation.input_valid(Generation.Input{"codex", "demo", Nil{}, Nil{}, Nil{}}) == True{} : Bool}
+
 law collector_excludes_secret_names:
   {Collector.allowed_path(".env.local") == False{} : Bool}
 

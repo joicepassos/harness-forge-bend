@@ -42,6 +42,12 @@ def Laws.instructions_are_empty_without_approval():
 def Laws.instruction_document_renders_edge_sections():
   {==}
 
+def Laws.generation_input_requires_supported_agent():
+  {==}
+
+def Laws.generation_input_accepts_valid_ir():
+  {==}
+
 def Laws.collector_excludes_secret_names():
   {==}
 

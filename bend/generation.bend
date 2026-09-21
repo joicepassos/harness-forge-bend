@@ -7,6 +7,16 @@ type QualityGate is Data:
 type Skill is Data:
   Skill{id: String, description: String, path: String}
 
+type Input is Data:
+  Input{agent: String, project: String, rules: List<&2, Harness.Rule>, commands: List<&2, QualityGate>, skills: List<&2, Skill>}
+
+def input_valid(input: Input) -> Bool:
+  match input:
+    case Input{+agent, +project, rules, commands, skills}:
+      (String.eq(agent, "codex") || String.eq(agent, "claude")) &&
+        Bool.not(String.is_empty(String.trim(project))) &&
+        Harness.valid(Harness.Harness{1, project, rules})
+
 # Pure instruction generation. File writes and agent-specific paths stay outside Bend.
 def status_line(status: Harness.Status) -> String:
   match status:
