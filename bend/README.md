@@ -1,72 +1,47 @@
-# HarnessForge Bend — incremento 0.1
+# HarnessForge Bend — increment 0.1
 
-Uma base pequena do analisador do [HarnessForge](https://github.com/joicepassos/harness-forge),
-para **Linux e macOS**, usando [Bend 2](https://bend-lang.com/).
+A small analysis core for [HarnessForge](https://github.com/joicepassos/harness-forge), targeting **Linux and macOS** and written in [Bend 2](https://bend-lang.com/).
 
-O core em `core.bend` recebe um inventário de caminhos relativos, identifica
-linguagens, manifestos de build e sinais de testes/infraestrutura, conta as
-ocorrências e gera Markdown com até três arquivos de evidência por sinal.
-O coletor `scan.py` apenas percorre diretórios e entrega o inventário para o
-executável Bend. Nenhum arquivo do projeto é aberto para ler seu conteúdo.
+`core.bend` receives an inventory of relative paths, identifies languages, build manifests, and test or infrastructure signals, counts matches, and emits Markdown with up to three evidence files per signal. `scan.py` only walks directories and passes the inventory to the Bend executable. It never opens project files to read their contents.
 
-## Executar
+## Run it
 
-Pré-requisitos: Git, Bun 1.3.14, Node 24, Python 3.12+ e Clang 14+.
-No macOS, instale as ferramentas de linha de comando do Xcode; no Ubuntu,
-instale `clang` pelo gerenciador de pacotes.
+Requirements: Git, Bun 1.3.14, Node 24, Python 3.12+, and Clang 14+. On macOS, install Xcode command line tools; on Ubuntu, install `clang` through the package manager.
 
 ```sh
 git clone https://github.com/joicepassos/harness-forge-bend.git
 cd harness-forge-bend
 sh bend/build.sh
-python3 bend/scan.py /caminho/do/projeto > /tmp/relatorio.md
+python3 bend/scan.py /path/to/project > /tmp/report.md
 ```
 
-O build baixa o compilador oficial em `.cache/bend`, fixado no commit
-`75cb8f3e041aeaad2b37e726c0a33ba19dc49df8` (Bend 2.0.23), verifica as leis,
-executa os testes e compila `bend/bin/harnessforge-bend-core`.
-Use `BEND_SOURCE=/caminho/bend sh bend/build.sh` para reutilizar um checkout
-do mesmo commit. A análise não depende de Go, Node, Bun ou conexão de rede;
-depois do build, precisa apenas de Python e do binário Bend.
+The build downloads the official compiler into `.cache/bend`, pinned to commit `75cb8f3e041aeaad2b37e726c0a33ba19dc49df8` (Bend 2.0.23), checks the laws, runs the tests, and builds `bend/bin/harnessforge-bend-core`. Use `BEND_SOURCE=/path/to/bend sh bend/build.sh` to reuse a checkout at the same commit. Keep the report outside the analyzed project so it is not included in a later inventory.
 
-Guarde o relatório fora do projeto analisado para ele não entrar no inventário
-da próxima execução. A saída padrão contém apenas o relatório; erros são
-enviados à saída de erro com código diferente de zero.
+## Bend conventions used here
 
-## Regras deste incremento
+The core is pure Bend code. `Rule` is declared `is Data` because rules are reused while scanning a path list; path lists are also `Data`. The report renderer uses recursive definitions and exhaustive `match` cases. `LAWS.bend` keeps human-owned properties separate from `PROOF.bend`, which contains the checked implementations. Run `bend PROOF.bend` before committing changes to the core.
 
-- Linguagens por extensão: Bend, Go, Python, Java, TypeScript/TSX,
-  JavaScript/JSX, Rust, C e Shell. Comparação diferencia maiúsculas/minúsculas.
-- Build por nome do manifesto, incluindo subprojetos: Go modules, npm-compatible,
-  Python packaging, Cargo, Maven, Gradle e Make.
-- Sinais: arquivos Go de teste, diretório raiz `tests/`, Dockerfile,
-  GitHub Actions na raiz, README.md e AGENTS.md.
-- Ordem determinística e caminhos escapados nas tabelas Markdown.
-- Exclusão de links simbólicos, arquivos especiais, diretórios de dependências,
-  caches e alguns nomes sensíveis, como `.env*` e chaves privadas.
-- Limites: 20 mil arquivos, 100 mil entradas visitadas, profundidade 64 e
-  manifesto UTF-8 de 4 MiB. Exceder limites causa erro, sem relatório parcial.
+The filesystem boundary is intentionally small and explicit: `scan.py` emits one UTF-8 relative path per line, and `main.bend` reads that inventory through the standard `File` and `IO` effects. The boundary does not execute anything found in the analyzed project.
 
-## Limitações deliberadas
+## Rules in this increment
 
-São heurísticas de nomes, sem análise de conteúdo, AST, frameworks, dependências,
-histórico Git, IA, geração de instruções ou validação de harness YAML.
-Não interpreta `.gitignore`. Binários comuns entram na contagem total de arquivos,
-mas seu conteúdo não é lido. A lista de exclusões não é um detector de segredos.
-Execute sobre uma árvore estável: esta base não oferece snapshot atômico contra
-mudanças concorrentes. Diretórios podados contam como uma entrada excluída.
+- Languages by extension: Bend, Go, Python, Java, TypeScript/TSX, JavaScript/JSX, Rust, C, and Shell. Matching is case-sensitive.
+- Build manifests by file name, including subprojects: Go modules, npm-compatible, Python packaging, Cargo, Maven, Gradle, and Make.
+- Signals: Go test files, a root `tests/` directory, Dockerfile, root GitHub Actions workflows, `README.md`, and `AGENTS.md`.
+- Deterministic ordering and escaped paths in Markdown tables.
+- Symlinks, special files, dependency directories, caches, and selected secret-like names such as `.env*` and private keys are excluded.
+- Limits: 20,000 files, 100,000 visited entries, depth 64, and a 4 MiB UTF-8 inventory. Exceeding a limit fails without emitting a partial report.
 
-`LAWS.bend` e `PROOF.bend` verificam quatro propriedades restritas: uma ausência
-preserva a contagem, uma presença acrescenta um e inventários vazios não produzem
-arquivos nem correspondências. Não são uma prova formal do coletor ou da aplicação
-inteira. Os testes cobrem detecção, evidências, limites, exclusões e execução nativa.
+## Deliberate limitations
 
-## Evolução incremental
+These are filename heuristics. There is no content or AST analysis, framework or dependency detection, Git history, AI, instruction generation, or Harness YAML validation. `.gitignore` is not interpreted. Ordinary binary files count, but their contents are never read. The exclusion list is not a secret scanner. Run against a stable tree; this version does not provide an atomic snapshot against concurrent changes. Pruned directories count as one excluded entry.
 
-1. **Core puro:** regras, contagem, evidências, relatório e leis.
-2. **Entrada real:** coletor limitado, CLI Bend e testes de integração.
-3. **Validação Linux/macOS:** build fixado e relatório do próprio repositório no CI.
+`LAWS.bend` and `PROOF.bend` check four focused properties: absence preserves a count, presence adds one, and empty inventories produce no files or matches. They do not formally verify the collector or the complete application. Tests cover detection, evidence, limits, exclusions, and native execution.
 
-Próximas etapas possíveis: respeitar `.gitignore`, saída JSON e substituir o
-coletor por um efeito POSIX em Bend. O código Go herdado permanece como referência;
-esta versão não pretende ter paridade completa com ele.
+## Incremental roadmap
+
+1. **Pure core:** rules, counting, evidence, report, and laws.
+2. **Real input:** bounded collector, Bend CLI, and integration tests.
+3. **Linux/macOS validation:** pinned build and repository report in CI.
+
+Possible next steps are `.gitignore` support, JSON output, and replacing the collector with a POSIX Bend effect. The inherited Go code remains the reference; this experiment does not claim full parity.
