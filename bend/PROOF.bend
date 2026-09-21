@@ -101,3 +101,9 @@ def Laws.generation_protocol_adds_skill_to_input():
 
 def Laws.generation_protocol_collects_only_approved_rules():
   {==}
+
+def Laws.generation_protocol_requires_headers():
+  {==}
+
+def Laws.generation_protocol_rejects_bad_headers():
+  {==}

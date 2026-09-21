@@ -110,3 +110,9 @@ law generation_protocol_adds_skill_to_input:
 
 law generation_protocol_collects_only_approved_rules:
   {Harness.approved_rules(Protocol.collect_rule_record(String.split("rule\tapproved\tid\tDescription", '\t'), True{})) == 1n : Nat}
+
+law generation_protocol_requires_headers:
+  {Protocol.headers_valid("codex", "demo") == True{} : Bool}
+
+law generation_protocol_rejects_bad_headers:
+  {Protocol.headers_valid("unknown", "demo") == False{} : Bool}

@@ -105,3 +105,7 @@ def collect_rule_record(parts: List<&2, String>, approved: Bool) -> List<&2, Har
       [approved_rule(parts)]
     case False{}:
       Nil{}
+
+def headers_valid(+agent: String, +project: String) -> Bool:
+  (String.eq(agent, "codex") || String.eq(agent, "claude")) &&
+    Bool.not(String.is_empty(String.trim(project)))
