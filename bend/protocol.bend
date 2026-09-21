@@ -98,3 +98,10 @@ def input_with_command(agent: String, project: String, command: String) -> Gener
 
 def input_with_skill(agent: String, project: String, id: String, description: String, path: String) -> Generation.Input:
   Generation.Input{agent, project, Nil{}, Nil{}, [Generation.Skill{id, description, path}]}
+
+def collect_rule_record(parts: List<&2, String>, approved: Bool) -> List<&2, Harness.Rule>:
+  match approved:
+    case True{}:
+      [approved_rule(parts)]
+    case False{}:
+      Nil{}

@@ -98,3 +98,6 @@ def Laws.generation_protocol_adds_command_to_input():
 
 def Laws.generation_protocol_adds_skill_to_input():
   {==}
+
+def Laws.generation_protocol_collects_only_approved_rules():
+  {==}

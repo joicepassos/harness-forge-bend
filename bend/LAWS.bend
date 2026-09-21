@@ -107,3 +107,6 @@ law generation_protocol_adds_command_to_input:
 
 law generation_protocol_adds_skill_to_input:
   {Generation.instruction_document("codex", Nil{}, Nil{}, [Generation.Skill{"review", "Review", "skills/review.md"}]) == "# HarnessForge instructions for codex\n\n- [review] Review — `skills/review.md`\n" : String}
+
+law generation_protocol_collects_only_approved_rules:
+  {Harness.approved_rules(Protocol.collect_rule_record(String.split("rule\tapproved\tid\tDescription", '\t'), True{})) == 1n : Nat}
