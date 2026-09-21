@@ -2,6 +2,7 @@ import Base
 import ./core.bend as Core
 import ./harness.bend as Harness
 import ./generation.bend as Generation
+import ./collector.bend as Collector
 
 # A missing signal cannot increase a count; a match adds exactly one.
 law absent_preserves_count:
@@ -48,3 +49,6 @@ law instructions_are_empty_without_approval:
 
 law instruction_document_renders_edge_sections:
   {Generation.instruction_document("codex", Nil{}, [Generation.QualityGate{"go test ./..."}], [Generation.Skill{"review", "Review changes", "skills/review.md"}]) == "# HarnessForge instructions for codex\n\n- `go test ./...`\n- [review] Review changes — `skills/review.md`\n" : String}
+
+law collector_excludes_secret_names:
+  {Collector.allowed_path(".env.local") == False{} : Bool}
