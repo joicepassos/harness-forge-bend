@@ -1,12 +1,13 @@
 import Base
 import ./core.bend as Core
+import ./collector.bend as Collector
 
 def nonempty(paths: List<&2, String>) -> List<&2, String>:
   match paths:
     case Nil{}:
       Nil{}
     case Con{+path, rest}:
-      Core.keep(Bool.not(String.is_empty(path)), path, nonempty(rest))
+      Core.keep(Collector.allowed_path(path), path, nonempty(rest))
 
 # The manifest is UTF-8. Verify its byte count before emitting any output.
 def choose(test: Bool, yes: Nat, no: Nat) -> Nat:

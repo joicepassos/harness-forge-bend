@@ -15,11 +15,6 @@ SKIP_DIRS = frozenset({
     '__pycache__', '.cache', '.gocache', '.worktrees', 'dist', 'build',
     'target', '.next', '.idea', '.vscode', '.ssh', '.aws', '.azure',
 })
-SECRET_NAMES = frozenset({'credentials', 'credentials.json', 'secrets.json',
-                          'id_rsa', 'id_ed25519', '.npmrc', '.pypirc'})
-SECRET_SUFFIXES = ('.pem', '.key', '.p12', '.pfx', '.keystore')
-
-
 def collect(root: Path) -> tuple[str, int]:
     """Return a sorted, bounded manifest without opening project files.
 
@@ -48,9 +43,7 @@ def collect(root: Path) -> tuple[str, int]:
                     skipped += 1
                     continue
                 if (any(ord(c) < 32 or ord(c) == 127 for c in relative)
-                        or entry.is_symlink() or name.startswith('.env')
-                        or name.lower() in SECRET_NAMES
-                        or name.lower().endswith(SECRET_SUFFIXES)):
+                        or entry.is_symlink()):
                     skipped += 1
                     continue
                 if entry.is_dir(follow_symlinks=False):
