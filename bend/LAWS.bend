@@ -52,3 +52,9 @@ law instruction_document_renders_edge_sections:
 
 law collector_excludes_secret_names:
   {Collector.allowed_path(".env.local") == False{} : Bool}
+
+law collector_prunes_dependency_directories:
+  {Collector.skipped_directory("node_modules") == True{} : Bool}
+
+law collector_keeps_source_directories:
+  {Collector.skipped_directory("src") == False{} : Bool}

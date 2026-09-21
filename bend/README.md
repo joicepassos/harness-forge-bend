@@ -23,6 +23,11 @@ The core is pure Bend code. `Rule` is declared `is Data` because rules are reuse
 
 The filesystem boundary is intentionally small and explicit: `scan.py` emits one UTF-8 relative path per line, and `main.bend` reads that inventory through the standard `File` and `IO` effects. The boundary does not execute anything found in the analyzed project.
 
+`collector.bend` owns the pure path policy used by `main.bend`. The Python
+adapter only walks directories, rejects symlinks and special files, and enforces
+resource limits needed during traversal; it does not decide which file names
+are safe to analyze.
+
 `harness.bend` now models a pure Harness IR subset with tagged `Origin`, `Status`,
 `Evidence`, `Rule`, and `Harness` values. It validates version, project name,
 rule descriptions, AI evidence requirements, and duplicate IDs. Review transitions

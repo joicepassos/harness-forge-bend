@@ -44,3 +44,9 @@ def Laws.instruction_document_renders_edge_sections():
 
 def Laws.collector_excludes_secret_names():
   {==}
+
+def Laws.collector_prunes_dependency_directories():
+  {==}
+
+def Laws.collector_keeps_source_directories():
+  {==}
