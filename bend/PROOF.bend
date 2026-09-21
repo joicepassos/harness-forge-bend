@@ -50,3 +50,6 @@ def Laws.collector_prunes_dependency_directories():
 
 def Laws.collector_keeps_source_directories():
   {==}
+
+def Laws.inventory_limit_accepts_small_projects():
+  {==}

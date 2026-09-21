@@ -58,3 +58,6 @@ law collector_prunes_dependency_directories:
 
 law collector_keeps_source_directories:
   {Collector.skipped_directory("src") == False{} : Bool}
+
+law inventory_limit_accepts_small_projects:
+  {Core.within_file_limit(["README.md", "main.go"]) == True{} : Bool}

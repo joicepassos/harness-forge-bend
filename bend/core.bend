@@ -54,6 +54,9 @@ def files(paths: List<&2, String>) -> Nat:
     case Con{path, rest}:
       1n+files(rest)
 
+def within_file_limit(paths: List<&2, String>) -> Bool:
+  Bool.not(Nat.is_gt(files(paths), 20000n))
+
 # Escape file names before including them in a Markdown table.
 def escape(path: String) -> String:
   html = String.join(String.split(String.join(String.split(String.join(String.split(path, '&'), "&amp;"), '<'), "&lt;"), '>'), "&gt;")
