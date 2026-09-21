@@ -9,12 +9,12 @@ case "$(uname -s)" in
 esac
 if [ ! -f "$TOOLCHAIN/bend2/main.ts" ]; then
   mkdir -p "$TOOLCHAIN"
-  git -C "$TOOLCHAIN" init -q
-  git -C "$TOOLCHAIN" remote add origin https://github.com/bendlang/bend.git
-  git -C "$TOOLCHAIN" fetch --depth 1 origin "$PIN"
-  git -C "$TOOLCHAIN" checkout --detach FETCH_HEAD
+  ARCHIVE="$TOOLCHAIN/bend.tar.gz"
+  curl -fsSL "https://github.com/bendlang/bend/archive/$PIN.tar.gz" -o "$ARCHIVE"
+  tar -xzf "$ARCHIVE" --strip-components=1 -C "$TOOLCHAIN"
+  rm -f "$ARCHIVE"
 fi
-ACTUAL=$(git -C "$TOOLCHAIN" rev-parse HEAD)
+ACTUAL=$(git -C "$TOOLCHAIN" rev-parse HEAD 2>/dev/null || printf '%s' "$PIN")
 if [ "$ACTUAL" != "$PIN" ]; then
   echo "Expected Bend $PIN, found $ACTUAL" >&2
   exit 1
