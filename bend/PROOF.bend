@@ -1,5 +1,6 @@
 import Base
 import ./LAWS.bend as Laws
+import ./harness.bend as Harness
 
 def Laws.absent_preserves_count(n):
   {==}
@@ -11,4 +12,22 @@ def Laws.empty_has_no_matches(rule):
   {==}
 
 def Laws.empty_has_no_files():
+  {==}
+
+def Laws.ai_rule_requires_evidence():
+  {==}
+
+def Laws.human_rule_may_have_no_evidence():
+  {==}
+
+def Laws.duplicate_rule_ids_are_invalid():
+  {==}
+
+def Laws.approved_can_only_reopen():
+  {==}
+
+def Laws.approved_reopens_as_candidate():
+  {==}
+
+def Laws.generated_rules_are_approved_only():
   {==}

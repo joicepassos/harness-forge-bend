@@ -23,6 +23,13 @@ The core is pure Bend code. `Rule` is declared `is Data` because rules are reuse
 
 The filesystem boundary is intentionally small and explicit: `scan.py` emits one UTF-8 relative path per line, and `main.bend` reads that inventory through the standard `File` and `IO` effects. The boundary does not execute anything found in the analyzed project.
 
+`harness.bend` now models a pure Harness IR subset with tagged `Origin`, `Status`,
+`Evidence`, `Rule`, and `Harness` values. It validates version, project name,
+rule descriptions, AI evidence requirements, and duplicate IDs. Review transitions
+are explicit: an approved or rejected rule can return to `Candidate`, but cannot
+jump directly to the other decision. `approved_rules` is the first generation
+boundary: later document generation can consume only approved rules.
+
 ## Rules in this increment
 
 - Languages by extension: Bend, Go, Python, Java, TypeScript/TSX, JavaScript/JSX, Rust, C, and Shell. Matching is case-sensitive.
@@ -41,7 +48,8 @@ These are filename heuristics. There is no content or AST analysis, framework or
 ## Incremental roadmap
 
 1. **Pure core:** rules, counting, evidence, report, and laws.
-2. **Real input:** bounded collector, Bend CLI, and integration tests.
-3. **Linux/macOS validation:** pinned build and repository report in CI.
+2. **Harness IR:** typed rules, validation, review transitions, and approval filtering.
+3. **Real input:** bounded collector, Bend CLI, and integration tests.
+4. **Linux/macOS validation:** pinned build and repository report in CI.
 
 Possible next steps are `.gitignore` support, JSON output, and replacing the collector with a POSIX Bend effect. The inherited Go code remains the reference; this experiment does not claim full parity.

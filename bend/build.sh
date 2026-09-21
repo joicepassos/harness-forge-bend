@@ -25,6 +25,7 @@ cd "$TOOLCHAIN/bend2"
 bun main.ts "$ROOT/PROOF.bend"
 bun main.ts "$ROOT/main.bend" --check-only
 node --import "$TOOLCHAIN/bend2/main.ts" "$ROOT/test_core.mjs"
+node --import "$TOOLCHAIN/bend2/main.ts" "$ROOT/test_harness.mjs"
 python3 -m unittest discover -s "$ROOT" -p test_scan.py
 bun main.ts "$ROOT/main.bend" -o "$ROOT/bin/harnessforge-bend-core"
 python3 "$ROOT/test_integration.py"
