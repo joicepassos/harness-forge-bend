@@ -74,3 +74,9 @@ def Laws.generation_protocol_decodes_two_field_records():
 
 def Laws.generation_protocol_decodes_rule_status():
   {==}
+
+def Laws.generation_protocol_decodes_command():
+  {==}
+
+def Laws.generation_protocol_decodes_skill_path():
+  {==}

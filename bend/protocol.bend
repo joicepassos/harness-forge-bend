@@ -49,3 +49,27 @@ def rule_description(parts: List<&2, String>) -> String:
 
 def rule_field(line: String) -> String:
   rule_status(String.split(line, '\t'))
+
+def command_value(line: String) -> String:
+  value(line)
+
+def skill_id(parts: List<&2, String>) -> String:
+  match parts:
+    case Con{tag, Con{id, Con{description, Con{path, Nil{}}}}}:
+      id
+    case _:
+      ""
+
+def skill_description(parts: List<&2, String>) -> String:
+  match parts:
+    case Con{tag, Con{id, Con{description, Con{path, Nil{}}}}}:
+      description
+    case _:
+      ""
+
+def skill_path(parts: List<&2, String>) -> String:
+  match parts:
+    case Con{tag, Con{id, Con{description, Con{path, Nil{}}}}}:
+      path
+    case _:
+      ""

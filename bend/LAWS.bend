@@ -83,3 +83,9 @@ law generation_protocol_decodes_two_field_records:
 
 law generation_protocol_decodes_rule_status:
   {Protocol.rule_field("rule\tapproved\tid\tDescription") == "approved" : String}
+
+law generation_protocol_decodes_command:
+  {Protocol.command_value("command\tgo test ./...") == "go test ./..." : String}
+
+law generation_protocol_decodes_skill_path:
+  {Protocol.skill_path(String.split("skill\treview\tReview\tskills/review.md", '\t')) == "skills/review.md" : String}
