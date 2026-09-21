@@ -81,3 +81,6 @@ def input_from_headers(agent: String, project: String) -> Generation.Input:
 
 def approved_rule(+parts: List<&2, String>) -> Harness.Rule:
   Harness.Rule{rule_id(parts), rule_description(parts), Harness.Human{}, Harness.Approved{}, Nil{}}
+
+def approved_record(+parts: List<&2, String>) -> Bool:
+  String.eq(rule_status(parts), "approved")

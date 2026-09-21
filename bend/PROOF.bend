@@ -86,3 +86,6 @@ def Laws.generation_protocol_builds_input_headers():
 
 def Laws.generation_protocol_builds_approved_rule():
   {==}
+
+def Laws.generation_protocol_filters_nonapproved_rules():
+  {==}

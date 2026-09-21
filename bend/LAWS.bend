@@ -95,3 +95,6 @@ law generation_protocol_builds_input_headers:
 
 law generation_protocol_builds_approved_rule:
   {Harness.approved(Protocol.approved_rule(String.split("rule\tapproved\tid\tDescription", '\t'))) == True{} : Bool}
+
+law generation_protocol_filters_nonapproved_rules:
+  {Protocol.approved_record(String.split("rule\tcandidate\tid\tDescription", '\t')) == False{} : Bool}
