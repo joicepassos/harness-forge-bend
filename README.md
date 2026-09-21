@@ -25,7 +25,7 @@ The build pins the official Bend compiler, checks four laws, runs the tests, and
 - **Python:** a small filesystem adapter that applies exclusions and limits.
 - **Validation:** core tests, collector tests, and native integration tests on Linux and macOS.
 
-This is not a complete port yet. It does not include AI, content or AST analysis, instruction generation, or `.gitignore` interpretation. The laws cover counting properties; they are not a proof of the whole application. See the [0.1 increment guide](bend/README.md) for scope, limits, and next steps.
+This is not a complete port yet. It does not include AI, content or AST analysis, or `.gitignore` interpretation. Instruction generation now has a validated Bend IR and an opt-in Go adapter; the full protocol parser is still incremental. The laws cover counting and IR properties; they are not a proof of the whole application. See the [0.1 increment guide](bend/README.md) for scope, limits, and next steps.
 
 The original history and Go implementation remain available as reference. The new implementation lives under `bend/`; inherited installers and the npm package belong to the Go project. The [archived upstream README](docs/UPSTREAM_README.md) provides that context.
 
