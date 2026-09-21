@@ -25,7 +25,7 @@ class NativeTests(unittest.TestCase):
             self.assertIn('| Go | 2 |', result.stdout)
             self.assertIn('| Python | 1 | olá.py<br>', result.stdout)
             self.assertIn('| Go modules | 1 | go.mod<br>', result.stdout)
-            self.assertIn('Collector: 1 entries excluded', result.stdout)
+            self.assertIn('Collector: 0 entries excluded', result.stdout)
             self.assertNotIn('.env', result.stdout)
             self.assertEqual(before, {p.name: p.read_bytes() for p in root.iterdir()})
 
