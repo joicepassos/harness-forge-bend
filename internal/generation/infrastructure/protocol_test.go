@@ -15,7 +15,7 @@ func TestEncodeProtocolFiltersUnapprovedData(t *testing.T) {
 			{ID: "candidate", Description: "C", Status: "candidate"},
 		},
 		QualityGates: []harnessdomain.QualityGate{{Command: "go test ./..."}},
-		Skills: []harnessdomain.Skill{{ID: "review", Description: "Review", Path: "skills/review.md", Status: "approved"}},
+		Skills:       []harnessdomain.Skill{{ID: "review", Description: "Review", Path: "skills/review.md", Status: "approved"}},
 	}, "codex")
 	if err != nil {
 		t.Fatal(err)
