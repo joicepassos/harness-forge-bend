@@ -104,3 +104,6 @@ law generation_protocol_adds_approved_rule_to_input:
 
 law generation_protocol_adds_command_to_input:
   {Generation.instruction_document("codex", Nil{}, [Generation.QualityGate{"go test ./..."}], Nil{}) == "# HarnessForge instructions for codex\n\n- `go test ./...`\n" : String}
+
+law generation_protocol_adds_skill_to_input:
+  {Generation.instruction_document("codex", Nil{}, Nil{}, [Generation.Skill{"review", "Review", "skills/review.md"}]) == "# HarnessForge instructions for codex\n\n- [review] Review — `skills/review.md`\n" : String}

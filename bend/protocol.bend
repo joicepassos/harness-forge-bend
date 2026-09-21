@@ -95,3 +95,6 @@ def input_approved_count(input: Generation.Input) -> Nat:
 
 def input_with_command(agent: String, project: String, command: String) -> Generation.Input:
   Generation.Input{agent, project, Nil{}, [Generation.QualityGate{command}], Nil{}}
+
+def input_with_skill(agent: String, project: String, id: String, description: String, path: String) -> Generation.Input:
+  Generation.Input{agent, project, Nil{}, Nil{}, [Generation.Skill{id, description, path}]}
